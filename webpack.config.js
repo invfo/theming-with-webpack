@@ -20,4 +20,9 @@ module.exports = {
   devServer: {
     contentBase: './dist',
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      THEME: JSON.stringify(process.env.THEME),
+    }),
+  ]
 };

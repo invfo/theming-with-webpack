@@ -5,9 +5,22 @@ import styled, { ThemeProvider } from 'styled-components';
 const basicTheme = {
   background: '#68C5DB',
   button: {
+    border: 'none',
     borderRadius: '6px',
     fontSize: '16px',
+    marginTop: '0',
     padding: '1px 7px 2px 7px',
+  },
+};
+
+const advancedTheme = {
+  background: 'linear-gradient(#68C5DB, #E0CA3C)',
+  button: {
+    border: '3px black dotted',
+    borderRadius: '23px',
+    fontSize: '30px',
+    marginTop: '17px',
+    padding: '5px 10px',
   },
 };
 
@@ -20,6 +33,10 @@ const Wrapper = styled.div`
   padding: 20px 0;
   text-align: center;
   width: 440px;
+
+  input {
+    margin-top: ${(props) => props.theme.button.marginTop};
+  }
 `;
 
 const Options = () => (
@@ -34,6 +51,7 @@ const Button = ({className}) => ( // className is required for the 'styled' func
 );
 
 const StyledButton = styled(Button)`
+  border: ${(props) => props.theme.button.border};
   border-radius: ${(props) => props.theme.button.borderRadius};
   font-family: inherit !important;
   font-size: ${(props) => props.theme.button.fontSize};
@@ -47,11 +65,16 @@ const Poll = () => (
   </form>
 );
 
+const Title = ({children}) => <h1>{children}</h1>;
+
+const theme = THEME === 'advanced' ? advancedTheme : basicTheme;
+
 class App extends React.Component {
   render() {
     return (
-      <ThemeProvider theme={basicTheme}>
+      <ThemeProvider theme={theme}>
         <Wrapper>
+          { THEME === 'advanced' && <Title>Make your choice!</Title>}
           <Poll />
         </Wrapper>
       </ThemeProvider>
